@@ -1,6 +1,6 @@
 {
     "$schema": "https://openapi.vercel.sh/vercel.json",
-    "buildCommand": "composer install --prefer-dist --no-dev --optimize-autoloader --no-interaction && php -r \"file_exists('.env') || copy('.env.example','.env');\" && php artisan key:generate --force && npm ci && npm run build",
+    "buildCommand": "npm ci && npm run build",
     "outputDirectory": "public",
     "functions": {
         "api/index.php": {
