@@ -21,22 +21,9 @@ foreach ($paths as $key => $value) {
     $_SERVER[$key] = $value;
 }
 
-try {
-    require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
-    $app = require_once __DIR__ . '/../bootstrap/app.php';
-    $app->useStoragePath($storage);
+$app = require_once __DIR__ . '/../bootstrap/app.php';
+$app->useStoragePath($storage);
 
-    $request = Illuminate\Http\Request::capture();
-    $response = $app->handleRequest($request);
-    $response->send();
-    $app->terminate();
-} catch (Throwable $e) {
-    // TEMPORARY: remove after debugging
-    error_log(get_class($e) . ': ' . $e->getMessage() . ' @ ' . $e->getFile() . ':' . $e->getLine());
-    if (!headers_sent()) {
-        http_response_code(500);
-        header('Content-Type: text/plain; charset=utf-8');
-    }
-    echo "\n\n" . get_class($e) . ': ' . $e->getMessage() . "\n" . $e->getFile() . ':' . $e->getLine();
-}
+$app->handleRequest(Illuminate\Http\Request::capture());
