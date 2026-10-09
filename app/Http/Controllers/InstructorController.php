@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\models\Instructor;
+use App\Models\Instructor;
 use Illuminate\Http\Request;
 use App\Http\Requests\InstructorRequest;
 
