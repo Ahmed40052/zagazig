@@ -33,7 +33,10 @@ try {
     $app->terminate();
 } catch (Throwable $e) {
     // TEMPORARY: remove after debugging
-    http_response_code(500);
-    header('Content-Type: text/plain; charset=utf-8');
-    echo get_class($e) . ': ' . $e->getMessage() . "\n\n" . $e->getFile() . ':' . $e->getLine();
+    error_log(get_class($e) . ': ' . $e->getMessage() . ' @ ' . $e->getFile() . ':' . $e->getLine());
+    if (!headers_sent()) {
+        http_response_code(500);
+        header('Content-Type: text/plain; charset=utf-8');
+    }
+    echo "\n\n" . get_class($e) . ': ' . $e->getMessage() . "\n" . $e->getFile() . ':' . $e->getLine();
 }
